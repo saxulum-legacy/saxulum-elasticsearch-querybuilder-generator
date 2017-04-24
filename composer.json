@@ -1,0 +1,29 @@
+{
+  "name": "saxulum/saxulum-elasticsearch-querybuilder-generator",
+  "type": "library",
+  "description": "A query builder generator for elasticsearch",
+  "keywords": ["elasticsearch", "querybuilder", "query", "generator"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dominik Zogg",
+      "email": "dominik.zogg@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "~7.0",
+    "nikic/php-parser": "~3.0",
+    "saxulum/saxulum-elasticsearch-querybuilder": "~3.0@dev"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.3"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "autoload": {
+    "psr-4": { "Saxulum\\ElasticSearchQueryBuilder\\Generator\\": "src" }
+  }
+}
