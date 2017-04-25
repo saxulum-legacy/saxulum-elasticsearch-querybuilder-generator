@@ -9,7 +9,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\DNumber;
@@ -59,7 +59,7 @@ final class NodeGenerator
      */
     private function createObjectNode(): Expr
     {
-        return new New_(new Name('ObjectNode'));
+        return new StaticCall(new Name('ObjectNode'), 'create');
     }
 
     /**
@@ -67,7 +67,7 @@ final class NodeGenerator
      */
     private function createArrayNode(): Expr
     {
-        return new New_(new Name('ArrayNode'));
+        return new StaticCall(new Name('ArrayNode'), 'create');
     }
 
     /**
@@ -77,16 +77,16 @@ final class NodeGenerator
     private function createScalarNode($value): Expr
     {
         if (is_int($value)) {
-            return new New_(new Name('IntNode'), [new Arg(new LNumber($value))]);
+            return new StaticCall(new Name('IntNode'), 'create', [new Arg(new LNumber($value))]);
         } elseif (is_float($value)) {
-            return new New_(new Name('FloatNode'), [new Arg(new DNumber($value))]);
+            return new StaticCall(new Name('FloatNode'), 'create', [new Arg(new DNumber($value))]);
         } elseif (is_bool($value)) {
-            return new New_(new Name('BoolNode'), [new Arg(new ConstFetch(new Name($value ? 'true' : 'false')))]);
+            return new StaticCall(new Name('BoolNode'), 'create', [new Arg(new ConstFetch(new Name($value ? 'true' : 'false')))]);
         } elseif (null === $value) {
-            return new New_(new Name('NullNode'));
+            return new StaticCall(new Name('NullNode'), 'create');
         }
 
-        return new New_(new Name('StringNode'), [new Arg(new String_($value))]);
+        return new StaticCall(new Name('StringNode'), 'create', [new Arg(new String_($value))]);
     }
 
     /**
