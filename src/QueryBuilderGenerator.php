@@ -100,7 +100,7 @@ final class QueryBuilderGenerator
         } elseif (is_bool($value)) {
             return new MethodCall($expr, 'boolNode', [new Arg(new ConstFetch(new Name($value ? 'true' : 'false')))]);
         } elseif (null === $value) {
-            return new MethodCall($expr, 'stringNode', [new Arg(new ConstFetch(new Name('null')))]);
+            return new MethodCall($expr, 'nullNode');
         }
 
         return new MethodCall($expr, 'stringNode', [new Arg(new String_($value))]);
@@ -213,6 +213,7 @@ final class QueryBuilderGenerator
                 false === strpos($lastLine, '->boolNode') &&
                 false === strpos($lastLine, '->floatNode') &&
                 false === strpos($lastLine, '->intNode') &&
+                false === strpos($lastLine, '->nullNode') &&
                 false === strpos($lastLine, '->stringNode')
             ) {
                 $position++;

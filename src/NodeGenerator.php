@@ -83,7 +83,7 @@ final class NodeGenerator
         } elseif (is_bool($value)) {
             return new New_(new Name('BoolNode'), [new Arg(new ConstFetch(new Name($value ? 'true' : 'false')))]);
         } elseif (null === $value) {
-            return new New_(new Name('StringNode'), [new Arg(new ConstFetch(new Name('null')))]);
+            return new New_(new Name('NullNode'));
         }
 
         return new New_(new Name('StringNode'), [new Arg(new String_($value))]);
@@ -193,6 +193,7 @@ final class NodeGenerator
             false === strpos($lastStructuredLine, 'BoolNode') &&
             false === strpos($lastStructuredLine, 'FloatNode') &&
             false === strpos($lastStructuredLine, 'IntNode') &&
+            false === strpos($lastStructuredLine, 'NullNode') &&
             false === strpos($lastStructuredLine, 'StringNode')) {
             $position++;
         }
