@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+use Saxulum\ElasticSearchQueryBuilder\Generator\Command\NodeGeneratorCommand;
+use Saxulum\ElasticSearchQueryBuilder\Generator\Command\QueryBuilderGeneratorCommand;
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+$application->add(new NodeGeneratorCommand());
+$application->add(new QueryBuilderGeneratorCommand());
+
+$application->run();
