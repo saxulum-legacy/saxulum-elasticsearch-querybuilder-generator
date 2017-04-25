@@ -25,11 +25,18 @@ final class QueryBuilderGenerator
     private $phpGenerator;
 
     /**
+     * @var bool
+     */
+    private $useMethodName;
+
+    /**
+     * @param bool $useMethodName
      * @param PhpGenerator $phpGenerator
      */
-    public function __construct(PhpGenerator $phpGenerator)
+    public function __construct(PhpGenerator $phpGenerator, bool $useMethodName = false)
     {
         $this->phpGenerator = $phpGenerator;
+        $this->useMethodName = $useMethodName;
     }
 
     /**
@@ -116,7 +123,9 @@ final class QueryBuilderGenerator
                 $argument = $this->createScalarNode($queryBuilder, $value);
             }
 
-            $expr = new MethodCall($expr, 'addToArrayNode', [new Arg($argument)]);
+            $methodName = $this->useMethodName ? 'addToArrayNode' : 'add';
+
+            $expr = new MethodCall($expr, $methodName, [new Arg($argument)]);
 
             if ($value instanceof \stdClass) {
                 $expr = new MethodCall($this->appendChildrenToObjectNode($queryBuilder, $expr, $value), 'end');
@@ -145,7 +154,9 @@ final class QueryBuilderGenerator
                 $argument = $this->createScalarNode($queryBuilder, $value);
             }
 
-            $expr = new MethodCall($expr, 'addToObjectNode', [new Arg(new String_($key)), new Arg($argument)]);
+            $methodName = $this->useMethodName ? 'addToObjectNode' : 'add';
+
+            $expr = new MethodCall($expr, $methodName, [new Arg(new String_($key)), new Arg($argument)]);
 
             if ($value instanceof \stdClass) {
                 $expr = new MethodCall($this->appendChildrenToObjectNode($queryBuilder, $expr, $value), 'end');

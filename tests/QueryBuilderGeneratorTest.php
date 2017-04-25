@@ -15,8 +15,8 @@ class QueryBuilderGeneratorTest extends \PHPUnit_Framework_TestCase
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('match_all', $queryBuilder->objectNode())->end()
+    ->add('query', $queryBuilder->objectNode())
+        ->add('match_all', $queryBuilder->objectNode())->end()
     ->end();
 EOD;
 
@@ -32,9 +32,9 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('match', $queryBuilder->objectNode())
-            ->addToObjectNode('title', $queryBuilder->stringNode('elasticsearch'))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('match', $queryBuilder->objectNode())
+            ->add('title', $queryBuilder->stringNode('elasticsearch'))
         ->end()
     ->end();
 EOD;
@@ -51,11 +51,11 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('range', $queryBuilder->objectNode())
-            ->addToObjectNode('elements', $queryBuilder->objectNode())
-                ->addToObjectNode('gte', $queryBuilder->intNode(10))
-                ->addToObjectNode('lte', $queryBuilder->intNode(20))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('range', $queryBuilder->objectNode())
+            ->add('elements', $queryBuilder->objectNode())
+                ->add('gte', $queryBuilder->intNode(10))
+                ->add('lte', $queryBuilder->intNode(20))
             ->end()
         ->end()
     ->end();
@@ -73,9 +73,9 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('exists', $queryBuilder->objectNode())
-            ->addToObjectNode('field', $queryBuilder->stringNode('text'))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('exists', $queryBuilder->objectNode())
+            ->add('field', $queryBuilder->stringNode('text'))
         ->end()
     ->end();
 EOD;
@@ -92,11 +92,11 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('bool', $queryBuilder->objectNode())
-            ->addToObjectNode('must_not', $queryBuilder->objectNode())
-                ->addToObjectNode('exists', $queryBuilder->objectNode())
-                    ->addToObjectNode('field', $queryBuilder->stringNode('text'))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('bool', $queryBuilder->objectNode())
+            ->add('must_not', $queryBuilder->objectNode())
+                ->add('exists', $queryBuilder->objectNode())
+                    ->add('field', $queryBuilder->stringNode('text'))
                 ->end()
             ->end()
         ->end()
@@ -115,9 +115,9 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('prefix', $queryBuilder->objectNode())
-            ->addToObjectNode('title', $queryBuilder->stringNode('elastic'))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('prefix', $queryBuilder->objectNode())
+            ->add('title', $queryBuilder->stringNode('elastic'))
         ->end()
     ->end();
 EOD;
@@ -134,9 +134,9 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('wildcard', $queryBuilder->objectNode())
-            ->addToObjectNode('title', $queryBuilder->stringNode('ela*c'))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('wildcard', $queryBuilder->objectNode())
+            ->add('title', $queryBuilder->stringNode('ela*c'))
         ->end()
     ->end();
 EOD;
@@ -153,9 +153,9 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('regexp', $queryBuilder->objectNode())
-            ->addToObjectNode('title', $queryBuilder->stringNode('search$'))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('regexp', $queryBuilder->objectNode())
+            ->add('title', $queryBuilder->stringNode('search$'))
         ->end()
     ->end();
 EOD;
@@ -172,11 +172,11 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('fuzzy', $queryBuilder->objectNode())
-            ->addToObjectNode('title', $queryBuilder->objectNode())
-                ->addToObjectNode('value', $queryBuilder->stringNode('sea'))
-                ->addToObjectNode('fuzziness', $queryBuilder->intNode(2))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('fuzzy', $queryBuilder->objectNode())
+            ->add('title', $queryBuilder->objectNode())
+                ->add('value', $queryBuilder->stringNode('sea'))
+                ->add('fuzziness', $queryBuilder->intNode(2))
             ->end()
         ->end()
     ->end();
@@ -194,9 +194,9 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('type', $queryBuilder->objectNode())
-            ->addToObjectNode('value', $queryBuilder->stringNode('product'))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('type', $queryBuilder->objectNode())
+            ->add('value', $queryBuilder->stringNode('product'))
         ->end()
     ->end();
 EOD;
@@ -213,12 +213,12 @@ EOD;
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
 $queryBuilder
-    ->addToObjectNode('query', $queryBuilder->objectNode())
-        ->addToObjectNode('ids', $queryBuilder->objectNode())
-            ->addToObjectNode('type', $queryBuilder->stringNode('product'))
-            ->addToObjectNode('values', $queryBuilder->arrayNode())
-                ->addToArrayNode($queryBuilder->intNode(1))
-                ->addToArrayNode($queryBuilder->intNode(2))
+    ->add('query', $queryBuilder->objectNode())
+        ->add('ids', $queryBuilder->objectNode())
+            ->add('type', $queryBuilder->stringNode('product'))
+            ->add('values', $queryBuilder->arrayNode())
+                ->add($queryBuilder->intNode(1))
+                ->add($queryBuilder->intNode(2))
             ->end()
         ->end()
     ->end();
@@ -232,6 +232,117 @@ EOD;
     }
 
     public function testComplex()
+    {
+        $expect = <<<'EOD'
+$queryBuilder = new QueryBuilder();
+$queryBuilder
+    ->add('query', $queryBuilder->objectNode())
+        ->add('bool', $queryBuilder->objectNode())
+            ->add('must', $queryBuilder->objectNode())
+                ->add('term', $queryBuilder->objectNode())
+                    ->add('user', $queryBuilder->stringNode('kimchy'))
+                ->end()
+            ->end()
+            ->add('filter', $queryBuilder->objectNode())
+                ->add('term', $queryBuilder->objectNode())
+                    ->add('tag', $queryBuilder->stringNode('tech'))
+                ->end()
+            ->end()
+            ->add('must_not', $queryBuilder->objectNode())
+                ->add('range', $queryBuilder->objectNode())
+                    ->add('age', $queryBuilder->objectNode())
+                        ->add('from', $queryBuilder->intNode(10))
+                        ->add('to', $queryBuilder->intNode(20))
+                    ->end()
+                ->end()
+            ->end()
+            ->add('should', $queryBuilder->arrayNode())
+                ->add($queryBuilder->objectNode())
+                    ->add('term', $queryBuilder->objectNode())
+                        ->add('tag', $queryBuilder->stringNode('wow'))
+                    ->end()
+                ->end()
+                ->add($queryBuilder->objectNode())
+                    ->add('term', $queryBuilder->objectNode())
+                        ->add('tag', $queryBuilder->stringNode('elasticsearch'))
+                    ->end()
+                ->end()
+            ->end()
+            ->add('minimum_should_match', $queryBuilder->intNode(1))
+            ->add('boost', $queryBuilder->floatNode(1.2))
+            ->add('enabled', $queryBuilder->boolNode(true))
+            ->add('relation', $queryBuilder->stringNode(null))
+            ->add('array', $queryBuilder->arrayNode())
+                ->add($queryBuilder->arrayNode())
+                    ->add($queryBuilder->objectNode())
+                        ->add('term', $queryBuilder->objectNode())
+                            ->add('tag', $queryBuilder->stringNode('wow'))
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ->end()
+    ->end();
+EOD;
+
+        $json = <<<EOD
+{
+    "query": {
+        "bool": {
+            "must": {
+                "term": {
+                    "user": "kimchy"
+                }
+            },
+            "filter": {
+                "term": {
+                    "tag": "tech"
+                }
+            },
+            "must_not": {
+                "range": {
+                    "age": {
+                        "from": 10,
+                        "to": 20
+                    }
+                }
+            },
+            "should": [
+                {
+                    "term": {
+                        "tag": "wow"
+                    }
+                },
+                {
+                    "term": {
+                        "tag": "elasticsearch"
+                    }
+                }
+            ],
+            "minimum_should_match": 1,
+            "boost": 1.2,
+            "enabled": true,
+            "relation": null,
+            "array": [
+                [
+                    {
+                        "term": {
+                            "tag": "wow"
+                        }
+                    }
+                ]
+            ]
+        }
+    }
+}
+EOD;
+
+        $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        self::assertSame($expect, $generator->generateByJson($json));
+    }
+
+    public function testComplexWithMethodNames()
     {
         $expect = <<<'EOD'
 $queryBuilder = new QueryBuilder();
@@ -337,7 +448,7 @@ EOD;
 }
 EOD;
 
-        $generator = new QueryBuilderGenerator(new PhpGenerator());
+        $generator = new QueryBuilderGenerator(new PhpGenerator(), true);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
