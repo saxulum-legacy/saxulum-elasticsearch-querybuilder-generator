@@ -50,7 +50,7 @@ final class QueryBuilderGenerator
             throw new \InvalidArgumentException(sprintf('Message: %s, query: %s', json_last_error_msg(), $query));
         }
 
-        $queryBuilder = new Variable('queryBuilder');
+        $queryBuilder = new Variable('qb');
 
         $stmts = [];
 
@@ -65,7 +65,7 @@ final class QueryBuilderGenerator
      */
     private function createQueryBuilderNode(): Expr
     {
-        return new Assign(new Variable('queryBuilder'), new New_(new Name('QueryBuilder')));
+        return new Assign(new Variable('qb'), new New_(new Name('QueryBuilder')));
     }
 
     /**
