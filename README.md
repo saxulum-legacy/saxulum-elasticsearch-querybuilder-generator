@@ -28,7 +28,14 @@ Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-que
  * [QueryBuilderGenerator][2]
  * [NodeGenerator][3]
 
+### Generator Command
+
+ * [QueryBuilderGeneratorCommand][4]
+ * [NodeGeneratorCommand][5]
+
 [1]: https://packagist.org/packages/saxulum/saxulum-elasticsearch-querybuilder-generator
 [2]: doc/QueryBuilderGenerator.md
 [3]: doc/NodeGenerator.md
+[4]: doc/Command/QueryBuilderGeneratorCommand.md
+[5]: doc/Command/NodeGeneratorCommand.md
 
