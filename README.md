@@ -13,7 +13,7 @@
 ## Requirements
 
  * php: ~7.0
- * saxulum/saxulum-elasticsearch-querybuilder: ~3.0@dev
+ * saxulum/saxulum-elasticsearch-querybuilder: ~3.0
  * nikic/php-parser: ~3.0
  * symfony/console: ~3.0
 
