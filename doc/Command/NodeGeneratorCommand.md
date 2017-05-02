@@ -35,18 +35,7 @@ bin/console saxulum:elasticsearch:querybuilder:generator:node '{
                 }
             ],
             "minimum_should_match": 1,
-            "boost": 1.2,
-            "enabled": true,
-            "relation": null,
-            "array": [
-                [
-                    {
-                        "term": {
-                            "tag": "wow"
-                        }
-                    }
-                ]
-            ]
+            "boost": 1.1
         }
     }
 }'
