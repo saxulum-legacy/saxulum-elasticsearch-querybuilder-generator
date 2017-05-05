@@ -34,6 +34,7 @@ final class NodeGenerator
 
     /**
      * @param $query
+     *
      * @return string
      */
     public function generateByJson($query): string
@@ -72,6 +73,7 @@ final class NodeGenerator
 
     /**
      * @param string|float|int|bool|null $value
+     *
      * @return Expr
      */
     private function createScalarNode($value): Expr
@@ -91,6 +93,7 @@ final class NodeGenerator
 
     /**
      * @param array $data
+     *
      * @return Expr
      */
     private function appendChildrenToArrayNode(array $data)
@@ -120,6 +123,7 @@ final class NodeGenerator
 
     /**
      * @param \stdClass $data
+     *
      * @return Expr
      */
     private function appendChildrenToObjectNode(\stdClass $data)
@@ -149,6 +153,7 @@ final class NodeGenerator
 
     /**
      * @param string $code
+     *
      * @return string
      */
     private function structureCode(string $code): string
@@ -171,6 +176,7 @@ final class NodeGenerator
 
     /**
      * @param string $code
+     *
      * @return array
      */
     private function getLinesByCode(string $code): array
@@ -183,8 +189,8 @@ final class NodeGenerator
     /**
      * @param string $line
      * @param string $lastStructuredLine
-     * @param int $position
-     * @param array $structuredLines
+     * @param int    $position
+     * @param array  $structuredLines
      */
     private function structuredLine(string $line, string $lastStructuredLine, int &$position, array &$structuredLines)
     {
@@ -195,27 +201,27 @@ final class NodeGenerator
             false === strpos($lastStructuredLine, 'IntNode') &&
             false === strpos($lastStructuredLine, 'NullNode') &&
             false === strpos($lastStructuredLine, 'StringNode')) {
-            $position++;
+            ++$position;
         }
 
         $lineLength = strlen($line);
         $braceCount = 0;
 
         while (')' === $line[--$lineLength]) {
-            $braceCount++;
+            ++$braceCount;
         }
 
         $prefix = str_pad('', $position * 4);
 
         if ($braceCount > 2) {
-            $structuredLines[] = $prefix . substr($line, 0, - ($braceCount - 2));
+            $structuredLines[] = $prefix.substr($line, 0, -($braceCount - 2));
         } else {
-            $structuredLines[] = $prefix . $line;
+            $structuredLines[] = $prefix.$line;
         }
 
         while ($braceCount-- > 2) {
-            $position--;
-            $structuredLines[] = str_pad('', $position * 4) . ')';
+            --$position;
+            $structuredLines[] = str_pad('', $position * 4).')';
         }
     }
 }

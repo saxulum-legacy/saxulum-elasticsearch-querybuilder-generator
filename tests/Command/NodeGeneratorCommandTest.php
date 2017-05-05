@@ -1,6 +1,7 @@
 <?php
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Generator\Command;
+
 use Saxulum\ElasticSearchQueryBuilder\Generator\Command\NodeGeneratorCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -65,7 +66,7 @@ $node = ObjectNode::create()
 
 EOD;
 
-$json = <<<EOD
+        $json = <<<EOD
 {
     "query": {
         "bool": {

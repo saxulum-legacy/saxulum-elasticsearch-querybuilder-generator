@@ -30,7 +30,7 @@ final class QueryBuilderGenerator
     private $useMethodName;
 
     /**
-     * @param bool $useMethodName
+     * @param bool         $useMethodName
      * @param PhpGenerator $phpGenerator
      */
     public function __construct(PhpGenerator $phpGenerator, bool $useMethodName = false)
@@ -41,6 +41,7 @@ final class QueryBuilderGenerator
 
     /**
      * @param $query
+     *
      * @return string
      */
     public function generateByJson($query): string
@@ -70,6 +71,7 @@ final class QueryBuilderGenerator
 
     /**
      * @param Expr $expr
+     *
      * @return Expr
      */
     private function createObjectNode(Expr $expr): Expr
@@ -79,6 +81,7 @@ final class QueryBuilderGenerator
 
     /**
      * @param Expr $expr
+     *
      * @return Expr
      */
     private function createArrayNode(Expr $expr): Expr
@@ -87,8 +90,9 @@ final class QueryBuilderGenerator
     }
 
     /**
-     * @param Expr $expr
+     * @param Expr                       $expr
      * @param string|float|int|bool|null $value
+     *
      * @return Expr
      */
     private function createScalarNode(Expr $expr, $value): Expr
@@ -107,9 +111,10 @@ final class QueryBuilderGenerator
     }
 
     /**
-     * @param Expr $queryBuilder
-     * @param Expr $expr
+     * @param Expr  $queryBuilder
+     * @param Expr  $expr
      * @param array $data
+     *
      * @return Expr
      */
     private function appendChildrenToArrayNode(Expr $queryBuilder, Expr $expr, array $data)
@@ -138,9 +143,10 @@ final class QueryBuilderGenerator
     }
 
     /**
-     * @param Expr $queryBuilder
-     * @param Expr $expr
+     * @param Expr      $queryBuilder
+     * @param Expr      $expr
      * @param \stdClass $data
+     *
      * @return Expr
      */
     private function appendChildrenToObjectNode(Expr $queryBuilder, Expr $expr, \stdClass $data)
@@ -170,6 +176,7 @@ final class QueryBuilderGenerator
 
     /**
      * @param string $code
+     *
      * @return string
      */
     private function structureCode(string $code): string
@@ -181,7 +188,7 @@ final class QueryBuilderGenerator
         $structuredLines = [];
 
         foreach ($lines as $i => $line) {
-            $lastLine = $lines[$i-1] ?? '';
+            $lastLine = $lines[$i - 1] ?? '';
             $this->structuredLine($line, $lastLine, $position, $structuredLines);
         }
 
@@ -190,6 +197,7 @@ final class QueryBuilderGenerator
 
     /**
      * @param string $code
+     *
      * @return array
      */
     private function getLinesByCode(string $code): array
@@ -203,8 +211,8 @@ final class QueryBuilderGenerator
     /**
      * @param string $line
      * @param string $lastLine
-     * @param int $position
-     * @param array $structuredLines
+     * @param int    $position
+     * @param array  $structuredLines
      */
     private function structuredLine(string $line, string $lastLine, int &$position, array &$structuredLines)
     {
@@ -216,10 +224,10 @@ final class QueryBuilderGenerator
                 false === strpos($lastLine, '->nullNode') &&
                 false === strpos($lastLine, '->stringNode')
             ) {
-                $position++;
+                ++$position;
             }
 
-            $structuredLines[] = str_pad('', $position * 4) . $line;
+            $structuredLines[] = str_pad('', $position * 4).$line;
 
             return;
         }
@@ -231,9 +239,9 @@ final class QueryBuilderGenerator
                 return;
             }
 
-            $position--;
+            --$position;
 
-            $structuredLines[] = str_pad('', $position * 4) . $line;
+            $structuredLines[] = str_pad('', $position * 4).$line;
 
             return;
         }

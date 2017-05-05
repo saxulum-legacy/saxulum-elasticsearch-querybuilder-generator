@@ -1,6 +1,7 @@
 <?php
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Generator\Command;
+
 use Saxulum\ElasticSearchQueryBuilder\Generator\Command\QueryBuilderGeneratorCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -66,7 +67,7 @@ $qb
 
 EOD;
 
-$json = <<<EOD
+        $json = <<<EOD
 {
     "query": {
         "bool": {
@@ -183,7 +184,7 @@ $qb
 
 EOD;
 
-$json = <<<EOD
+        $json = <<<EOD
 {
     "query": {
         "bool": {
