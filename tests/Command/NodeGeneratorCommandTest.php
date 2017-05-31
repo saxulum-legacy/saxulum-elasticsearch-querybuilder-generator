@@ -126,4 +126,120 @@ EOD;
 
         self::assertSame($expect, $output->fetch());
     }
+
+    public function testExecuteWithQueryBuilderFactory()
+    {
+        $expect = <<<'EOD'
+Generated code:
+$node = $qb->objectNode()
+    ->add('query', $qb->objectNode()
+        ->add('bool', $qb->objectNode()
+            ->add('must', $qb->objectNode()
+                ->add('term', $qb->objectNode()
+                    ->add('user', $qb->stringNode('kimchy'))
+                )
+            )
+            ->add('filter', $qb->objectNode()
+                ->add('term', $qb->objectNode()
+                    ->add('tag', $qb->stringNode('tech'))
+                )
+            )
+            ->add('must_not', $qb->objectNode()
+                ->add('range', $qb->objectNode()
+                    ->add('age', $qb->objectNode()
+                        ->add('from', $qb->intNode(10))
+                        ->add('to', $qb->intNode(20))
+                    )
+                )
+            )
+            ->add('should', $qb->arrayNode()
+                ->add($qb->objectNode()
+                    ->add('term', $qb->objectNode()
+                        ->add('tag', $qb->stringNode('wow'))
+                    )
+                )
+                ->add($qb->objectNode()
+                    ->add('term', $qb->objectNode()
+                        ->add('tag', $qb->stringNode('elasticsearch'))
+                    )
+                )
+            )
+            ->add('minimum_should_match', $qb->intNode(1))
+            ->add('boost', $qb->floatNode(1.2))
+            ->add('enabled', $qb->boolNode(true))
+            ->add('relation', $qb->nullNode())
+            ->add('array', $qb->arrayNode()
+                ->add($qb->arrayNode()
+                    ->add($qb->objectNode()
+                        ->add('term', $qb->objectNode()
+                            ->add('tag', $qb->stringNode('wow'))
+                        )
+                    )
+                )
+            )
+        )
+    );
+
+EOD;
+
+        $json = <<<EOD
+{
+    "query": {
+        "bool": {
+            "must": {
+                "term": {
+                    "user": "kimchy"
+                }
+            },
+            "filter": {
+                "term": {
+                    "tag": "tech"
+                }
+            },
+            "must_not": {
+                "range": {
+                    "age": {
+                        "from": 10,
+                        "to": 20
+                    }
+                }
+            },
+            "should": [
+                {
+                    "term": {
+                        "tag": "wow"
+                    }
+                },
+                {
+                    "term": {
+                        "tag": "elasticsearch"
+                    }
+                }
+            ],
+            "minimum_should_match": 1,
+            "boost": 1.2,
+            "enabled": true,
+            "relation": null,
+            "array": [
+                [
+                    {
+                        "term": {
+                            "tag": "wow"
+                        }
+                    }
+                ]
+            ]
+        }
+    }
+}
+EOD;
+
+        $input = new ArrayInput(['query' => $json, '--useQueryBuilderFactory' => true]);
+        $output = new BufferedOutput();
+
+        $command = new NodeGeneratorCommand();
+        $command->run($input, $output);
+
+        self::assertSame($expect, $output->fetch());
+    }
 }

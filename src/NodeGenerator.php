@@ -25,11 +25,18 @@ final class NodeGenerator
     private $phpGenerator;
 
     /**
-     * @param PhpGenerator $phpGenerator
+     * @var bool
      */
-    public function __construct(PhpGenerator $phpGenerator)
+    private $useQueryBuilderFactory;
+
+    /**
+     * @param PhpGenerator $phpGenerator
+     * @param bool         $useQueryBuilderFactory
+     */
+    public function __construct(PhpGenerator $phpGenerator, bool $useQueryBuilderFactory = false)
     {
         $this->phpGenerator = $phpGenerator;
+        $this->useQueryBuilderFactory = $useQueryBuilderFactory;
     }
 
     /**
@@ -60,7 +67,11 @@ final class NodeGenerator
      */
     private function createObjectNode(): Expr
     {
-        return new StaticCall(new Name('ObjectNode'), 'create');
+        if (!$this->useQueryBuilderFactory) {
+            return new StaticCall(new Name('ObjectNode'), 'create');
+        }
+
+        return new MethodCall(new Variable('qb'), 'objectNode');
     }
 
     /**
@@ -68,7 +79,11 @@ final class NodeGenerator
      */
     private function createArrayNode(): Expr
     {
-        return new StaticCall(new Name('ArrayNode'), 'create');
+        if (!$this->useQueryBuilderFactory) {
+            return new StaticCall(new Name('ArrayNode'), 'create');
+        }
+
+        return new MethodCall(new Variable('qb'), 'arrayNode');
     }
 
     /**
@@ -77,6 +92,20 @@ final class NodeGenerator
      * @return Expr
      */
     private function createScalarNode($value): Expr
+    {
+        if (!$this->useQueryBuilderFactory) {
+            return $this->createScalarNodeDefault($value);
+        }
+
+        return $this->createScalarNodeQueryBuilderFactory($value);
+    }
+
+    /**
+     * @param string|float|int|bool|null $value
+     *
+     * @return Expr
+     */
+    private function createScalarNodeDefault($value): Expr
     {
         if (is_int($value)) {
             return new StaticCall(new Name('IntNode'), 'create', [new Arg(new LNumber($value))]);
@@ -89,6 +118,26 @@ final class NodeGenerator
         }
 
         return new StaticCall(new Name('StringNode'), 'create', [new Arg(new String_($value))]);
+    }
+
+    /**
+     * @param string|float|int|bool|null $value
+     *
+     * @return Expr
+     */
+    private function createScalarNodeQueryBuilderFactory($value): Expr
+    {
+        if (is_int($value)) {
+            return new MethodCall(new Variable('qb'), 'intNode', [new Arg(new LNumber($value))]);
+        } elseif (is_float($value)) {
+            return new MethodCall(new Variable('qb'), 'floatNode', [new Arg(new DNumber($value))]);
+        } elseif (is_bool($value)) {
+            return new MethodCall(new Variable('qb'), 'boolNode', [new Arg(new ConstFetch(new Name($value ? 'true' : 'false')))]);
+        } elseif (null === $value) {
+            return new MethodCall(new Variable('qb'), 'nullNode');
+        }
+
+        return new MethodCall(new Variable('qb'), 'stringNode', [new Arg(new String_($value))]);
     }
 
     /**
@@ -196,11 +245,11 @@ final class NodeGenerator
     {
         if (0 === strpos($line, '->add') &&
             false === strpos($lastStructuredLine, ' )') &&
-            false === strpos($lastStructuredLine, 'BoolNode') &&
-            false === strpos($lastStructuredLine, 'FloatNode') &&
-            false === strpos($lastStructuredLine, 'IntNode') &&
-            false === strpos($lastStructuredLine, 'NullNode') &&
-            false === strpos($lastStructuredLine, 'StringNode')) {
+            false === strpos($lastStructuredLine, 'oolNode') &&
+            false === strpos($lastStructuredLine, 'loatNode') &&
+            false === strpos($lastStructuredLine, 'ntNode') &&
+            false === strpos($lastStructuredLine, 'ullNode') &&
+            false === strpos($lastStructuredLine, 'tringNode')) {
             ++$position;
         }
 
