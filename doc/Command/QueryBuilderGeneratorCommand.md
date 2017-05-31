@@ -89,7 +89,7 @@ $qb
 ## Run with --useMethodName
 
 ```sh
-bin/console saxulum:elasticsearch:querybuilder:generator:querybuilder '{
+bin/console saxulum:elasticsearch:querybuilder:generator:querybuilder --useMethodName '{
     "query": {
         "bool": {
             "must": {
