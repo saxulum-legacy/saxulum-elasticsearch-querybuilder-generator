@@ -88,7 +88,7 @@ $node = ObjectNode::create()
 ## Run with --useQueryBuilderFactory
 
 ```sh
-bin/console saxulum:elasticsearch:querybuilder:generator:node '{
+bin/console saxulum:elasticsearch:querybuilder:generator:node --useQueryBuilderFactory '{
     "query": {
         "bool": {
             "must": {
