@@ -13,15 +13,15 @@
   "require": {
     "php": "~7.0",
     "nikic/php-parser": "~3.0",
-    "saxulum/saxulum-elasticsearch-querybuilder": "~3.0",
-    "symfony/console": "~3.0"
+    "saxulum/saxulum-elasticsearch-querybuilder": "~3.2",
+    "symfony/console": "~3.0|~4.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~5.3"
+    "phpunit/phpunit": "^6.5.8"
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.1-dev"
+      "dev-master": "1.2-dev"
     }
   },
   "autoload": {

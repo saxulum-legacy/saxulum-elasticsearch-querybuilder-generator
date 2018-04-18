@@ -2,6 +2,7 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Generator\Command;
 
+use PHPUnit\Framework\TestCase;
 use Saxulum\ElasticSearchQueryBuilder\Generator\Command\QueryBuilderGeneratorCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -9,7 +10,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\Generator\Command\QueryBuilderGeneratorCommand
  */
-class QueryBuilderGeneratorCommandTest extends \PHPUnit_Framework_TestCase
+class QueryBuilderGeneratorCommandTest extends TestCase
 {
     public function testExecute()
     {
@@ -123,9 +124,28 @@ EOD;
         $output = new BufferedOutput();
 
         $command = new QueryBuilderGeneratorCommand();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\Command\NodeGeneratorCommand" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\Command\QueryBuilderGeneratorCommand"', $error['message']);
+
         $command->run($input, $output);
 
         self::assertSame($expect, $output->fetch());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
     }
 
     public function testExecuteWithUseMethodName()
@@ -240,8 +260,27 @@ EOD;
         $output = new BufferedOutput();
 
         $command = new QueryBuilderGeneratorCommand();
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\Command\NodeGeneratorCommand" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\Command\QueryBuilderGeneratorCommand"', $error['message']);
+
         $command->run($input, $output);
 
         self::assertSame($expect, $output->fetch());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
     }
 }

@@ -3,12 +3,13 @@
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Generator;
 
 use PhpParser\PrettyPrinter\Standard as PhpGenerator;
+use PHPUnit\Framework\TestCase;
 use Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator;
 
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator
  */
-class NodeGeneratorTest extends \PHPUnit_Framework_TestCase
+class NodeGeneratorTest extends TestCase
 {
     public function testMatchAll()
     {
@@ -22,6 +23,10 @@ EOD;
         $json = '{"query":{"match_all":{}}}';
 
         $generator = new NodeGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -40,6 +45,10 @@ EOD;
         $json = '{"query":{"match":{"title":"elasticsearch"}}}';
 
         $generator = new NodeGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -62,6 +71,10 @@ EOD;
 
         $generator = new NodeGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -79,6 +92,10 @@ EOD;
         $json = '{"query":{"exists":{"field":"text"}}}';
 
         $generator = new NodeGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -102,6 +119,10 @@ EOD;
 
         $generator = new NodeGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -119,6 +140,10 @@ EOD;
         $json = '{"query":{"prefix":{"title":"elastic"}}}';
 
         $generator = new NodeGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -138,6 +163,10 @@ EOD;
 
         $generator = new NodeGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -155,6 +184,10 @@ EOD;
         $json = '{"query":{"regexp":{"title":"search$"}}}';
 
         $generator = new NodeGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -177,6 +210,10 @@ EOD;
 
         $generator = new NodeGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -194,6 +231,10 @@ EOD;
         $json = '{"query":{"type":{"value":"product"}}}';
 
         $generator = new NodeGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -217,6 +258,10 @@ EOD;
 
         $generator = new NodeGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -231,6 +276,10 @@ EOD;
         $json = '[1,2]';
 
         $generator = new NodeGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        self::assertNull($error);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -342,6 +391,10 @@ EOD;
 
         $generator = new NodeGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        self::assertNull($error);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -451,6 +504,15 @@ EOD;
 EOD;
 
         $generator = new NodeGenerator(new PhpGenerator(), true);
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Argument $useQueryBuilderFactory will be removed', $error['message']);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
