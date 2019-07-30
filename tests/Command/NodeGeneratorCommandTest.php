@@ -2,6 +2,7 @@
 
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Generator\Command;
 
+use PHPUnit\Framework\TestCase;
 use Saxulum\ElasticSearchQueryBuilder\Generator\Command\NodeGeneratorCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -9,7 +10,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\Generator\Command\NodeGeneratorCommand
  */
-class NodeGeneratorCommandTest extends \PHPUnit_Framework_TestCase
+class NodeGeneratorCommandTest extends TestCase
 {
     public function testExecute()
     {
@@ -125,6 +126,10 @@ EOD;
         $command->run($input, $output);
 
         self::assertSame($expect, $output->fetch());
+
+        $error = error_get_last();
+
+        self::assertNull($error);
     }
 
     public function testExecuteWithQueryBuilderFactory()
@@ -241,5 +246,14 @@ EOD;
         $command->run($input, $output);
 
         self::assertSame($expect, $output->fetch());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Argument $useQueryBuilderFactory will be removed', $error['message']);
     }
 }

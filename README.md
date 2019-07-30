@@ -13,29 +13,29 @@
 ## Requirements
 
  * php: ~7.0
- * saxulum/saxulum-elasticsearch-querybuilder: ~3.0
+ * saxulum/saxulum-elasticsearch-querybuilder: ~3.2
  * nikic/php-parser: ~3.0
- * symfony/console: ~3.0
+ * symfony/console: ~3.0|~4.0
 
 ## Installation
 
 Through [Composer](http://getcomposer.org) as [saxulum/saxulum-elasticsearch-querybuilder-generator][1].
 
+```sh
+composer require saxulum-elasticsearch-querybuilder-generator "~1.2"
+```
+
 ## Usage
 
 ### Generator
 
- * [QueryBuilderGenerator][2]
  * [NodeGenerator][3]
 
 ### Generator Command
 
- * [QueryBuilderGeneratorCommand][4]
  * [NodeGeneratorCommand][5]
 
 [1]: https://packagist.org/packages/saxulum/saxulum-elasticsearch-querybuilder-generator
-[2]: doc/QueryBuilderGenerator.md
 [3]: doc/NodeGenerator.md
-[4]: doc/Command/QueryBuilderGeneratorCommand.md
 [5]: doc/Command/NodeGeneratorCommand.md
 

@@ -3,12 +3,13 @@
 namespace Saxulum\Tests\ElasticSearchQueryBuilder\Generator;
 
 use PhpParser\PrettyPrinter\Standard as PhpGenerator;
+use PHPUnit\Framework\TestCase;
 use Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator;
 
 /**
  * @covers \Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator
  */
-class QueryBuilderGeneratorTest extends \PHPUnit_Framework_TestCase
+class QueryBuilderGeneratorTest extends TestCase
 {
     public function testMatchAll()
     {
@@ -23,6 +24,15 @@ EOD;
         $json = '{"query":{"match_all":{}}}';
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -42,6 +52,15 @@ EOD;
         $json = '{"query":{"match":{"title":"elasticsearch"}}}';
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -65,6 +84,15 @@ EOD;
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -83,6 +111,15 @@ EOD;
         $json = '{"query":{"exists":{"field":"text"}}}';
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -107,6 +144,15 @@ EOD;
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -125,6 +171,15 @@ EOD;
         $json = '{"query":{"prefix":{"title":"elastic"}}}';
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -145,6 +200,15 @@ EOD;
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -163,6 +227,15 @@ EOD;
         $json = '{"query":{"regexp":{"title":"search$"}}}';
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -186,6 +259,15 @@ EOD;
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -204,6 +286,15 @@ EOD;
         $json = '{"query":{"type":{"value":"product"}}}';
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -227,6 +318,15 @@ EOD;
         $json = '{"query":{"ids":{"type":"product","values":[1,2]}}}';
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
 
         self::assertSame($expect, $generator->generateByJson($json));
     }
@@ -339,6 +439,15 @@ EOD;
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
 
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -450,6 +559,15 @@ EOD;
 
         $generator = new QueryBuilderGenerator(new PhpGenerator(), true);
 
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
+
         self::assertSame($expect, $generator->generateByJson($json));
     }
 
@@ -461,6 +579,16 @@ EOD;
         $json = '{"query":{"ids":{"type":"product","values":[1,2]}}';
 
         $generator = new QueryBuilderGenerator(new PhpGenerator());
+
+        $error = error_get_last();
+
+        error_clear_last();
+
+        self::assertNotNull($error);
+
+        self::assertSame(E_USER_DEPRECATED, $error['type']);
+        self::assertSame('Use "Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator" instead of the "Saxulum\ElasticSearchQueryBuilder\Generator\QueryBuilderGenerator"', $error['message']);
+
         $generator->generateByJson($json);
     }
 }

@@ -37,6 +37,10 @@ final class NodeGenerator
     {
         $this->phpGenerator = $phpGenerator;
         $this->useQueryBuilderFactory = $useQueryBuilderFactory;
+
+        if ($useQueryBuilderFactory) {
+            @trigger_error('Argument $useQueryBuilderFactory will be removed', E_USER_DEPRECATED);
+        }
     }
 
     /**

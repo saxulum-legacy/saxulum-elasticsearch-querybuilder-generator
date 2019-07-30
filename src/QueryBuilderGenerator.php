@@ -17,6 +17,9 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\PrettyPrinter\Standard as PhpGenerator;
 
+/**
+ * @deprecated use Saxulum\ElasticSearchQueryBuilder\Generator\NodeGenerator
+ */
 final class QueryBuilderGenerator
 {
     /**
@@ -35,6 +38,8 @@ final class QueryBuilderGenerator
      */
     public function __construct(PhpGenerator $phpGenerator, bool $useMethodName = false)
     {
+        @trigger_error(sprintf('Use "%s" instead of the "%s"', NodeGenerator::class, self::class), E_USER_DEPRECATED);
+
         $this->phpGenerator = $phpGenerator;
         $this->useMethodName = $useMethodName;
     }

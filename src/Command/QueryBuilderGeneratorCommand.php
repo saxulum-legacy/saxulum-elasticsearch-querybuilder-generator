@@ -12,8 +12,21 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * @deprecated use Saxulum\ElasticSearchQueryBuilder\Generator\Command\NodeGeneratorCommand
+ */
 final class QueryBuilderGeneratorCommand extends Command
 {
+    /**
+     * @param string|null $name
+     */
+    public function __construct($name = null)
+    {
+        parent::__construct($name);
+
+        @trigger_error(sprintf('Use "%s" instead of the "%s"', NodeGeneratorCommand::class, self::class), E_USER_DEPRECATED);
+    }
+
     protected function configure()
     {
         $this
